@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="mahron.id" />
+    <meta
+      property="og:description"
+      content="Peta Survei KKL Magister Geografi UGM 2024"
+    />
+    <meta
+      property="og:image"
+      content="https://app.mahron.id/kkl/assets/img/survei.jpg"
+    />
+    <meta
+      property="og:image:url"
+      content="https://app.mahron.id/kkl/assets/img/survei.jpg"
+    />
+    <meta property="og:site_name" content="mahron.id" />
+    <meta
+      property="og:title"
+      content="Peta Survei KKL Magister Geografi UGM 2024"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://app.mahron.id/kkl/" />
+    <meta property="twitter:card" content="Application" name="twitter:card" />
+    <meta
+      property="twitter:description"
+      content="Peta Survei KKL Magister Geografi UGM 2024"
+      name="twitter:description"
+    />
+    <meta
+      property="twitter:image"
+      content="https://app.mahron.id/kkl/assets/img/survei.jpg"
+      name="twitter:image"
+    />
+    <meta
+      property="twitter:site"
+      content="@hayunurmahron"
+      name="twitter:site"
+    />
+    <meta
+      property="twitter:title"
+      content="Peta Survei KKL Magister Geografi UGM 2024"
+      name="twitter:title"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://mahron.id/favicon-32x32.png"
+    />
+    <title>Peta Survei KKL Magister Geografi UGM 2024</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="assets/css/L.Control.HtmlLegend.css" />
+    <link rel="stylesheet" href="assets/css/Leaflet.PolylineMeasure.css" />
+    <link rel="stylesheet" href="assets/css/leaflet-velocity.css" />
+    <link rel="stylesheet" href="assets/css/leaflet.groupedlayercontrol.css" />
+    <link rel="stylesheet" href="assets/css/leaflet-reticle.css" />
+    <link
+      rel="stylesheet"
+      href="https://rawgit.com/MarcChasse/leaflet.ScaleFactor/master/leaflet.scalefactor.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css"
+      integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body,
+      #map {
+        height: 100%;
+        width: 100vw;
+      }
+
+      #mid-map-legend {
+        /* padding: 2px 2px 15px 2px; */
+        position: relative;
+      }
+
+      #mid-map-legend ul li {
+        list-style: none;
+      }
+
+      .mid-map-legend-color {
+        height: 12px;
+        width: 25px;
+        float: left;
+      }
+
+      .mid-map-legend-text {
+        position: absolute;
+        top: 45px;
+        padding-left: 13px;
+      }
+
+      .leaflet-popup-content-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .leaflet-popup-content {
+        margin: 0px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto !important;
+        min-width: 100px;
+        max-width: 100%;
+      }
+
+      .ts-map-legend-color {
+        height: 12px;
+        width: 12px;
+        margin-right: 3px;
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- leaflet html -->
+    <div id="map"></div>
+
+    <!-- leaflet js -->
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/leaflet.vectorgrid@1.2.0"
+    ></script>
+    <script src="assets/js/L.Control.HtmlLegend.js"></script>
+    <script src="assets/js/Leaflet.PolylineMeasure.js"></script>
+    <script src="assets/js/leaflet-velocity.js"></script>
+    <script src="assets/js/leaflet.groupedlayercontrol.js"></script>
+    <script src="assets/js/leaflet-reticle.js"></script>
+    <script src="https://rawgit.com/MarcChasse/leaflet.ScaleFactor/master/leaflet.scalefactor.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
+      integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <script>
+      // create map
+      map = L.map("map", {
+        zoomControl: true,
+        attributionControl: false,
+        center: [-7.7, 108.5],
+        zoom: 13,
+        minZoom: 2,
+      });
+
+      // Basemaps
+      var OpenTopoMap = L.tileLayer(
+        "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        { maxZoom: 17 }
+      ).addTo(map);
+      var OpenStreetMap = L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        { maxZoom: 19 }
+      );
+      var Satellite = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      );
+
+      L.control
+        .attribution({
+          prefix:
+            '<a href="https://mahron.id" target="_blank">m.id</a> &#127811;',
+        })
+        .addTo(map);
+
+      // add toolbar & measurement
+      L.control
+        .polylineMeasure({
+          position: "topleft",
+          units: "kilometres",
+          useSubunits: true,
+          showClearControl: true,
+          clearMeasurementsOnStop: false,
+          showBearings: true,
+          showUnitControl: true,
+        })
+        .addTo(map);
+
+      // scale
+      L.control
+        .reticle({
+          mapId: "map",
+          metric: true,
+          fetchElevation: false,
+        })
+        .addTo(map);
+
+      L.control.scalefactor().addTo(map);
+      L.control.scale().addTo(map);
+
+      // create basemap pane
+      // map.createPane("basemaps");
+      // map.getPane("basemaps").style.zIndex = 650;
+      // map.getPane("basemaps").style.pointerEvents = "none";
+
+      // getJson
+      function getJson(url) {
+        return JSON.parse(
+          $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            global: false,
+            async: false,
+            success: function (result) {
+              return result;
+            },
+          }).responseText
+        );
+      }
+
+      function titleCase(string) {
+        return string[0].toUpperCase() + string.slice(1).toLowerCase();
+      }
+
+      // layer kecamatan
+      var lyrBatasKecamatan = L.layerGroup();
+      var dataBatasKecamatan = getJson("assets/json/kecamatan.geojson");
+      var areaKecamatan = {};
+      dataBatasKecamatan.features.forEach(function (kecamatan) {
+        areaKecamatan[kecamatan.properties.objectid] = L.geoJson(
+          kecamatan.geometry,
+          {
+            // pane: "basemaps",
+            style: {
+              weight: 2,
+              color: "#000",
+              opacity: 1,
+              fillColor: "#ffffff",
+              fillOpacity: 0,
+            },
+          }
+        ).addTo(lyrBatasKecamatan);
+      });
+      lyrBatasKecamatan.addTo(map);
+
+      // layer rawan banjir
+      var lyrBanjir = L.layerGroup();
+      var dataBanjir = getJson("assets/json/rawanbanjir.geojson");
+      var areaBanjir = {};
+      dataBanjir.features.forEach(function (banjir) {
+        var popupContent =
+          '<div style="min-width: 150px;" class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Kelas: </span>' +
+          banjir.properties.kelas +
+          '<br><span style="font-weight:bold">Luas: </span>' +
+          banjir.properties.luas_ha.toFixed(2) +
+          "</div>";
+
+        var banjir_cat = banjir.properties.kelas;
+        if (banjir_cat == "Rawan Banjir") {
+          banjirColor = "#e10209";
+        } else {
+          banjirColor = "#0ce101";
+        }
+
+        areaBanjir[banjir.properties.objectid] = L.geoJson(banjir.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 2,
+            color: banjirColor,
+            opacity: 1,
+            fillColor: banjirColor,
+            fillOpacity: 0.5,
+          },
+        }).addTo(lyrBanjir);
+
+        areaBanjir[banjir.properties.objectid].bindPopup("");
+        areaBanjir[banjir.properties.objectid].on("click", function () {
+          areaBanjir[banjir.properties.objectid]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
+      });
+      // lyrBanjir.addTo(map);
+
+      // legend lyrBanjir
+      var htmlLegendBanjir = L.control.htmllegend({
+        position: "bottomright",
+        legends: [
+          {
+            name: "Rawan Banjir",
+            layer: lyrBanjir,
+            elements: [
+              {
+                html: `<div id="mid-map-legend"><div id="legend">
+                  <ul style="padding: 0; margin: 2px 2px 2px 0px;">
+                    <li>
+                    <div class="ts-map-legend-color" style="background-color: #0ce101"></div>Tidak Rawan Banjir</li>
+                    <li>
+                    <div class="ts-map-legend-color" style="background-color: #e10209"></div>Rawan Banjir</li>
+                  </ul>   
+                  </div><span>Sumber: Bappeda Kab. Pangandaran, 2016</span></div>`,
+              },
+            ],
+          },
+        ],
+        disableVisibilityControls: true,
+      });
+      map.addControl(htmlLegendBanjir);
+
+      // layer rawan tsunami
+      var lyrTsunami = L.layerGroup();
+      var dataTsunami = getJson("assets/json/rawantsunami.geojson");
+      var areaTsunami = {};
+      dataTsunami.features.forEach(function (tsunami) {
+        var popupContent =
+          '<div style="min-width: 150px;" class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Rawan Tsunami<br>Kelas: </span>' +
+          tsunami.properties.kelas +
+          '<br><span style="font-weight:bold">Luas: </span>' +
+          tsunami.properties.luas_ha.toFixed(2) +
+          "</div>";
+
+        var tsunamiCat = tsunami.properties.niben;
+        if (tsunamiCat <= 2) {
+          tsunamiColor = "#e10209";
+        } else if (tsunamiCat == 3) {
+          tsunamiColor = "#e19a04";
+        } else if (tsunamiCat == 4) {
+          tsunamiColor = "#f5ed03";
+        }
+
+        areaTsunami[tsunami.properties.objectid] = L.geoJson(tsunami.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 2,
+            color: tsunamiColor,
+            opacity: 1,
+            fillColor: tsunamiColor,
+            fillOpacity: 0.7,
+          },
+        }).addTo(lyrTsunami);
+
+        areaTsunami[tsunami.properties.objectid].bindPopup("");
+        areaTsunami[tsunami.properties.objectid].on("click", function () {
+          areaTsunami[tsunami.properties.objectid]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
+      });
+      lyrTsunami.addTo(map);
+
+      // legend lyrTsunami
+      var htmlLegendTsunami = L.control.htmllegend({
+        position: "bottomright",
+        legends: [
+          {
+            name: "Rawan Tsunami",
+            layer: lyrTsunami,
+            elements: [
+              {
+                html: `<div id="mid-map-legend"><div id="legend">
+                  <ul style="padding: 0; margin: 2px 2px 2px 0px;">
+                    <li>
+                    <div class="ts-map-legend-color" style="background-color: #f5ed03"></div>Rendah (Genangan < 1 m, Intensitas I-IV)</li>
+                    <li>
+                    <div class="ts-map-legend-color" style="background-color: #e19a04"></div>Sedang (Genangan 1-3 m, Intensitas V-VI)</li>
+                    <li>
+                    <div class="ts-map-legend-color" style="background-color: #e10209"></div>Tinggi (Genangan > 3 m, Intensitas VII-X)</li>
+                  </ul>   
+                  </div><span>Sumber: BPVMBG, 2014</span></div>`,
+              },
+            ],
+          },
+        ],
+        disableVisibilityControls: true,
+      });
+      map.addControl(htmlLegendTsunami);
+
+      // layer desa
+      var lyrBatasDesa = L.layerGroup();
+      var dataBatasDesa = getJson("assets/json/desa.geojson");
+      var areaDesa = {};
+      dataBatasDesa.features.forEach(function (desa) {
+        var popupContent =
+          '<div style="min-width: 150px;" class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Desa: </span>' +
+          titleCase(desa.properties.desa) +
+          ", Kec. " +
+          titleCase(desa.properties.kecamatan) +
+          '<br><span style="font-weight:bold">Luas: </span>' +
+          desa.properties.l_desa_ha.toFixed(2) +
+          " ha</p>" +
+          "</div>";
+
+        areaDesa[desa.properties.objectid] = L.geoJson(desa.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 0.5,
+            color: "red",
+            opacity: 1,
+            fillColor: "#e19aa4",
+            fillOpacity: 0.1,
+          },
+        }).addTo(lyrBatasDesa);
+
+        areaDesa[desa.properties.objectid].bindPopup("");
+        // areaDesa[desa.properties.objectid].on("click", function () {
+        //   areaDesa[desa.properties.objectid]
+        //     .bindPopup(popupContent, {
+        //       closeButton: true,
+        //     })
+        //     .openPopup();
+        // });
+        areaDesa[desa.properties.objectid].on("mouseover", function () {
+          areaDesa[desa.properties.objectid]
+            .bindPopup(popupContent, {
+              closeButton: false,
+            })
+            .openPopup();
+          areaDesa[desa.properties.objectid].setStyle({
+            fillOpacity: 0.3,
+          });
+        });
+        areaDesa[desa.properties.objectid].on("mouseout", function () {
+          areaDesa[desa.properties.objectid].setStyle({
+            fillOpacity: 0.1,
+          });
+        });
+      });
+      lyrBatasDesa.addTo(map);
+
+      // layer subdas
+      var lyrSubDAS = L.layerGroup();
+      var dataSubDAS = getJson("assets/json/subdaspangandaran.geojson");
+      var areaSubDAS = {};
+      dataSubDAS.features.forEach(function (das) {
+        var popupContent =
+          '<div style="min-width: 150px;" class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Nama DAS: </span>' +
+          das.properties.nama_das +
+          '<br><span style="font-weight:bold">Luas: </span>' +
+          das.properties.luas_ha +
+          '<br><span style="font-weight:bold">Keliling: </span>' +
+          das.properties.kel_m +
+          " m</p>" +
+          "</div>";
+
+        areaSubDAS[das.properties.objectid] = L.geoJson(das.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 2,
+            color: "#0e10f5",
+            opacity: 1,
+            fillColor: "#7fbdfa",
+            fillOpacity: 0.2,
+          },
+        }).addTo(lyrSubDAS);
+
+        areaSubDAS[das.properties.objectid].bindPopup("");
+        areaSubDAS[das.properties.objectid].on("click", function () {
+          areaSubDAS[das.properties.objectid]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
+      });
+      // lyrSubDAS.addTo(map);
+
+      // layer titik survei
+      var lyrTitikSurvei = L.layerGroup();
+      var dataTitikSurvei = getJson("assets/json/titiksurvei.geojson");
+      var areaTitikSurvei = {};
+      dataTitikSurvei.features.forEach(function (titik) {
+        var popupContent =
+          '<div class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Lokasi:</span> ' +
+          titik.properties.location +
+          '<br><span style="font-weight:bold">Deskripsi:</span> ' +
+          titik.properties.description +
+          '<br><span style="font-weight:bold">Elevasi:</span> ' +
+          titik.properties.elevation +
+          " m</p>" +
+          '<a data-fancybox="group" href="assets/img/' +
+          titik.properties.img1 +
+          '"><img style="max-width: 150px;" src="assets/img/' +
+          titik.properties.img1 +
+          '"></a> ' +
+          '<a data-fancybox="group" href="assets/img/' +
+          titik.properties.img2 +
+          '"><img style="max-width: 150px;" src="assets/img/' +
+          titik.properties.img2 +
+          '"></a> ' +
+          "</div>";
+
+        areaTitikSurvei[titik.properties.id] = L.geoJson(titik.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 1,
+            color: "#000",
+            opacity: 1,
+            fillColor: "#ffffff",
+            fillOpacity: 15,
+          },
+        }).addTo(lyrTitikSurvei);
+
+        areaTitikSurvei[titik.properties.id].bindPopup("");
+        areaTitikSurvei[titik.properties.id].on("click", function () {
+          areaTitikSurvei[titik.properties.id]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
+      });
+      lyrTitikSurvei.addTo(map);
+
+      // layer titik survei
+      var lyrTrackSurvei = L.layerGroup();
+      var dataTrackSurvei = getJson("assets/json/tracksurvei.geojson");
+      var areaTrackSurvei = {};
+      dataTrackSurvei.features.forEach(function (track) {
+        areaTrackSurvei[track.properties.end] = L.geoJson(track.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 2,
+            color: "green",
+            opacity: 1,
+            fillColor: "#ffffff",
+            fillOpacity: 15,
+          },
+        }).addTo(lyrTrackSurvei);
+      });
+      lyrTrackSurvei.addTo(map);
+
+      // legend boundary + survei
+      var htmlLegendBoundary = L.control.htmllegend({
+        position: "bottomright",
+        legends: [
+          {
+            name: "Legenda",
+            layer: lyrBatasKecamatan,
+            elements: [
+              {
+                html: `<div id="mid-map-legend"><div id="legend">
+                  <ul style="padding: 0; margin: 2px 2px 2px 0px;">
+                    <li><div class="ts-map-legend-color" style="background-color: black; height: 2px; margin-top: 5px;"></div>Batas Kecamatan</li>
+                    <li><div class="ts-map-legend-color" style="background-color: red; height: 2px; margin-top: 5px;"></div>Batas Desa</li>
+                    <li><div class="ts-map-legend-color" style="background-color: green; height: 2px; margin-top: 5px;"></div>Jalur Survei</li>
+                    <li><i class="fa fa-map-marker ts-map-legend-color" style="color:blue;"></i>Titik Survei</li>
+                  </ul>   
+                  </div></div>`,
+              },
+            ],
+          },
+        ],
+        disableVisibilityControls: true,
+      });
+      map.addControl(htmlLegendBoundary);
+
+      // add batas sub DAS
+      htmlLegendBoundary.addLegend({
+        layer: lyrSubDAS,
+        elements: [
+          {
+            html: `<ul style="padding: 0; margin: 2px 2px 2px 0px;">
+                    <li><div class="ts-map-legend-color" style="background-color: #0e10f5; height: 2px; margin-top: 5px;"></div>Batas Sub DAS</li>
+                    <li>Sumber: PEPDAS, 2018</li>
+                    </ul>`,
+            style: {},
+          },
+        ],
+      });
+
+      // function create layer RBI
+      function layerRBI(lyrName, geoJson, colorRBI, fillopacity) {
+        var dataRBI = getJson(`assets/json/` + geoJson + `.geojson`);
+        var areaRBI = {};
+        dataRBI.features.forEach(function (data) {
+          areaRBI[data.properties.OBJECTID] = L.geoJson(data.geometry, {
+            style: {
+              weight: 1,
+              color: colorRBI,
+              opacity: 1,
+              fillColor: colorRBI,
+              fillOpacity: fillopacity,
+            },
+          }).addTo(lyrName);
+        });
+      }
+
+      lyrTambak = L.layerGroup();
+      layerRBI(lyrTambak, "tambak_area", "#b8f7fa", 0.25);
+      // lyrTambak.addTo(map);
+
+      lyrSungaiArea = L.layerGroup();
+      layerRBI(lyrSungaiArea, "sungai_area", "#5cb9fa", 0.25);
+      // lyrSungaiArea.addTo(map);
+
+      lyrSungaiLine = L.layerGroup();
+      layerRBI(lyrSungaiLine, "sungai_line", "#3a96fa", 0.25);
+      // lyrSungaiLine.addTo(map);
+
+      lyrRelKereta = L.layerGroup();
+      layerRBI(lyrRelKereta, "relkereta", "black", 0.35);
+      // lyrRelKereta.addTo(map);
+
+      lyrSemak = L.layerGroup();
+      layerRBI(lyrSemak, "semakbelukar", "#e3af0f", 0.2);
+      // lyrSemak.addTo(map);
+
+      lyrSawah = L.layerGroup();
+      layerRBI(lyrSawah, "sawah", "#52e301", 0.2);
+      // lyrSawah.addTo(map);
+
+      lyrLadang = L.layerGroup();
+      layerRBI(lyrLadang, "ladang", "#dce386", 0.25);
+      // lyrLadang.addTo(map);
+
+      lyrPermukiman = L.layerGroup();
+      layerRBI(lyrPermukiman, "permukiman", "gray", 0.15);
+      // lyrPermukiman.addTo(map);
+
+      lyrPerkebunan = L.layerGroup();
+      layerRBI(lyrPerkebunan, "perkebunan", "#2ea408", 0.2);
+      // lyrPerkebunan.addTo(map);
+
+      lyrHerbaRumput = L.layerGroup();
+      layerRBI(lyrHerbaRumput, "herbarumput", "#e1c68e", 0.3);
+      // lyrHerbaRumput.addTo(map);
+
+      lyrTanamanCampur = L.layerGroup();
+      layerRBI(lyrTanamanCampur, "tanamancampur", "#b989e1", 0.3);
+      // lyrTanamanCampur.addTo(map);
+
+      lyrMangrove = L.layerGroup();
+      layerRBI(lyrMangrove, "hutanmangrove", "#07cf93", 0.1);
+      lyrMangrove.addTo(map);
+
+      // control layer
+      var baseLayer = {
+        OpenTopoMap: OpenTopoMap,
+        OpenStreetMap: OpenStreetMap,
+        "ESRI Satellite": Satellite,
+      };
+      var overlaysLayers = {
+        Models: {},
+        Boundary: {
+          "Batas Kecamatan": lyrBatasKecamatan,
+          "Batas Desa": lyrBatasDesa,
+          "Batas DAS": lyrSubDAS,
+          "Rawan Banjir": lyrBanjir,
+          "Rawan Tsunami": lyrTsunami,
+        },
+        Objects: {
+          "Titik Survei": lyrTitikSurvei,
+          "Track Survei": lyrTrackSurvei,
+          "Rel Kereta": lyrRelKereta,
+          "Area Tambak": lyrTambak,
+          "Area Sungai": lyrSungaiArea,
+          "Line Sungai": lyrSungaiLine,
+          "Hutan Mangrove": lyrMangrove,
+          Sawah: lyrSawah,
+          Semak: lyrSemak,
+          Ladang: lyrLadang,
+          Perkebunan: lyrPerkebunan,
+          Permukiman: lyrPermukiman,
+          "Tanaman Campur": lyrTanamanCampur,
+          "Herba dan Rumput": lyrHerbaRumput,
+        },
+      };
+      var options = {
+        exclusiveGroups: ["Models"],
+        groupCheckboxes: false,
+      };
+      var layerControl = L.control.groupedLayers(
+        baseLayer,
+        overlaysLayers,
+        options
+      );
+      map.addControl(layerControl);
+    </script>
+    <script>
+      $("[data-fancybox]").fancybox({
+        // Options will go here
+        buttons: ["close"],
+        wheel: false,
+        transitionEffect: "slide",
+        // thumbs          : false,
+        // hash            : false,
+        loop: true,
+        // keyboard        : true,
+        toolbar: false,
+        // animationEffect : false,
+        // arrows          : true,
+        clickContent: false,
+      });
+    </script>
+  </body>
+</html>
