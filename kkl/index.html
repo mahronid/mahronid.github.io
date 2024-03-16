@@ -324,7 +324,7 @@
                     <div class="ts-map-legend-color" style="background-color: #0ce101"></div>Tidak Rawan Banjir</li>
                     <li>
                     <div class="ts-map-legend-color" style="background-color: #e10209"></div>Rawan Banjir</li>
-                  </ul>   
+                  </ul>
                   </div><span>Sumber: Bappeda Kab. Pangandaran, 2016</span></div>`,
               },
             ],
@@ -395,7 +395,7 @@
                     <div class="ts-map-legend-color" style="background-color: #e19a04"></div>Sedang (Genangan 1-3 m, Intensitas V-VI)</li>
                     <li>
                     <div class="ts-map-legend-color" style="background-color: #e10209"></div>Tinggi (Genangan > 3 m, Intensitas VII-X)</li>
-                  </ul>   
+                  </ul>
                   </div><span>Sumber: BPVMBG, 2014</span></div>`,
               },
             ],
@@ -544,7 +544,7 @@
       });
       lyrTitikSurvei.addTo(map);
 
-      // layer titik survei
+      // layer track survei
       var lyrTrackSurvei = L.layerGroup();
       var dataTrackSurvei = getJson("assets/json/tracksurvei.geojson");
       var areaTrackSurvei = {};
@@ -577,7 +577,7 @@
                     <li><div class="ts-map-legend-color" style="background-color: red; height: 2px; margin-top: 5px;"></div>Batas Desa</li>
                     <li><div class="ts-map-legend-color" style="background-color: green; height: 2px; margin-top: 5px;"></div>Jalur Survei</li>
                     <li><i class="fa fa-map-marker ts-map-legend-color" style="color:blue;"></i>Titik Survei</li>
-                  </ul>   
+                  </ul>
                   </div></div>`,
               },
             ],
@@ -595,6 +595,63 @@
             html: `<ul style="padding: 0; margin: 2px 2px 2px 0px;">
                     <li><div class="ts-map-legend-color" style="background-color: #0e10f5; height: 2px; margin-top: 5px;"></div>Batas Sub DAS</li>
                     <li>Sumber: PEPDAS, 2018</li>
+                    </ul>`,
+            style: {},
+          },
+        ],
+      });
+
+      // layer pos hujan bmkg
+      var lyrPosHujan = L.layerGroup();
+      var dataPosHujan = getJson("assets/json/poshujanbmkg.geojson");
+      var areaPosHujan = {};
+      dataPosHujan.features.forEach(function (pos) {
+        var popupContent =
+          '<div class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Lokasi:</span> ' +
+          pos.properties.field_1 +
+          '<br><span style="font-weight:bold">Elevasi:</span> ' +
+          pos.properties.field_8 +
+          ' m<br><span style="font-weight:bold">Koordinat:</span> ' +
+          pos.properties.field_6 +
+          "," +
+          pos.properties.field_7 +
+          "</div>";
+
+        var geojsonMarkerOptions = {
+          radius: 8,
+          fillColor: "#black",
+          color: "black",
+          weight: 1,
+          opacity: 0.5,
+          fillOpacity: 0.8,
+        };
+
+        areaPosHujan[pos.properties.field_2] = L.geoJson(pos.geometry, {
+          // pane: "basemaps",
+          pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+          },
+        }).addTo(lyrPosHujan);
+
+        areaPosHujan[pos.properties.field_2].bindPopup("");
+        areaPosHujan[pos.properties.field_2].on("click", function () {
+          areaPosHujan[pos.properties.field_2]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
+      });
+      // lyrPosHujan.addTo(map);
+
+      // add legend pos hujan
+      htmlLegendBoundary.addLegend({
+        layer: lyrPosHujan,
+        elements: [
+          {
+            html: `<ul style="padding: 0; margin: 2px 2px 2px 0px;">
+                    <li><div class="ts-map-legend-color" style="background-color: black; border-radius:50%;"></div>Pos Hujan BMKG</li>
                     </ul>`,
             style: {},
           },
@@ -683,7 +740,8 @@
         },
         Objects: {
           "Titik Survei": lyrTitikSurvei,
-          "Track Survei": lyrTrackSurvei,
+          "Jalur Survei": lyrTrackSurvei,
+          "Pos Hujan BMKG": lyrPosHujan,
           "Rel Kereta": lyrRelKereta,
           "Area Tambak": lyrTambak,
           "Area Sungai": lyrSungaiArea,
