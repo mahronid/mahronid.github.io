@@ -188,6 +188,13 @@
       var Satellite = L.tileLayer(
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
       );
+      var Esri_Shaded = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}",
+        {
+          attribution: "Tiles &copy; Esri &mdash; Source: Esri",
+          maxZoom: 17,
+        }
+      );
 
       L.control
         .attribution({
@@ -728,6 +735,7 @@
         OpenTopoMap: OpenTopoMap,
         OpenStreetMap: OpenStreetMap,
         "ESRI Satellite": Satellite,
+        "ESRI Shaded": Esri_Shaded,
       };
       var overlaysLayers = {
         Models: {},
