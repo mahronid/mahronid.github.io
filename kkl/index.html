@@ -258,6 +258,12 @@
       var dataBatasKecamatan = getJson("assets/json/kecamatan.geojson");
       var areaKecamatan = {};
       dataBatasKecamatan.features.forEach(function (kecamatan) {
+        var popupContent =
+          '<div style="min-width: 150px;" class="flex items-center justify-between">' +
+          '<p><span style="font-weight:bold">Kecamatan: </span>' +
+          titleCase(kecamatan.properties.kecamatan) +
+          "</div>";
+
         areaKecamatan[kecamatan.properties.objectid] = L.geoJson(
           kecamatan.geometry,
           {
@@ -271,6 +277,15 @@
             },
           }
         ).addTo(lyrBatasKecamatan);
+
+        areaKecamatan[kecamatan.properties.objectid].bindPopup("");
+        areaKecamatan[kecamatan.properties.objectid].on("click", function () {
+          areaKecamatan[kecamatan.properties.objectid]
+            .bindPopup(popupContent, {
+              closeButton: true,
+            })
+            .openPopup();
+        });
       });
       lyrBatasKecamatan.addTo(map);
 
@@ -383,7 +398,7 @@
             .openPopup();
         });
       });
-      lyrTsunami.addTo(map);
+      // lyrTsunami.addTo(map);
 
       // legend lyrTsunami
       var htmlLegendTsunami = L.control.htmllegend({
