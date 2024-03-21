@@ -600,7 +600,7 @@
           },
         }).addTo(lyrPDAM);
       });
-      lyrPDAM.addTo(map);
+      // lyrPDAM.addTo(map);
 
       // legend boundary + survei
       var htmlLegendBoundary = L.control.htmllegend({
@@ -782,6 +782,7 @@
         Objects: {
           "Titik Survei": lyrTitikSurvei,
           "Jalur Survei": lyrTrackSurvei,
+          "Jalur PDAM": lyrPDAM,
           "Pos Hujan BMKG": lyrPosHujan,
           "Rel Kereta": lyrRelKereta,
           "Area Tambak": lyrTambak,
