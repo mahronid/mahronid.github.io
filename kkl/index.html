@@ -587,9 +587,9 @@
       // layer pdam
       var lyrPDAM = L.layerGroup();
       var dataPDAM = getJson("assets/json/pdam.geojson");
-      var dataPDAM = {};
+      var areaPDAM = {};
       dataPDAM.features.forEach(function (pipa) {
-        dataPDAM[pipa.properties.id] = L.geoJson(pipa.geometry, {
+        areaPDAM[pipa.properties.id] = L.geoJson(pipa.geometry, {
           // pane: "basemaps",
           style: {
             weight: 2,
