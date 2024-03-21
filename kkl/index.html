@@ -584,6 +584,24 @@
       });
       lyrTrackSurvei.addTo(map);
 
+      // layer pdam
+      var lyrPDAM = L.layerGroup();
+      var dataPDAM = getJson("assets/json/pdam.geojson");
+      var dataPDAM = {};
+      dataPDAM.features.forEach(function (pipa) {
+        dataPDAM[track.properties.id] = L.geoJson(pipa.geometry, {
+          // pane: "basemaps",
+          style: {
+            weight: 2,
+            color: "violet",
+            opacity: 1,
+            fillColor: "violet",
+            fillOpacity: 15,
+          },
+        }).addTo(lyrPDAM);
+      });
+      lyrPDAM.addTo(map);
+
       // legend boundary + survei
       var htmlLegendBoundary = L.control.htmllegend({
         position: "bottomright",
